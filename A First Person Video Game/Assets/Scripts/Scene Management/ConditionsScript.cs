@@ -22,11 +22,10 @@ public class ConditionsScript : MonoBehaviour
 
     private GameObject player;
 
-    public GameObject levelCompletionScreen;
-
     [Header("'Collectable' Objects")]
     public GameObject counterTextObject;
     public GameObject[] collectable;
+    public GameObject[] destroyable;
 
     [Header("Objective Prompts")]
     public TextMeshProUGUI objectiveText;
@@ -45,17 +44,18 @@ public class ConditionsScript : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
+        levelCompletionTrigger = GameObject.FindWithTag("ExitTrigger");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         objectiveText.gameObject.GetComponent<TextMeshProUGUI>().text = currentObjective;
-        counterTextObject.gameObject.GetComponent<TextMeshProUGUI>().text = collectable.Length.ToString();
+        counterTextObject.gameObject.GetComponent<TextMeshProUGUI>().text = collectable.Length + destroyable.Length.ToString();
 
-        if (levelCompletionScreen != null)
+        if (levelCompletionTrigger != null)
         {
-            levelCompletionScreen.SetActive(false);
+            levelCompletionTrigger.SetActive(false);
         }
     }
 
@@ -67,11 +67,12 @@ public class ConditionsScript : MonoBehaviour
         StartTimer();
 
         collectable = GameObject.FindGameObjectsWithTag("Collectable");
-        collectable = GameObject.FindGameObjectsWithTag("Destructable");
-        int CollectablesInLevel = collectable.Length;
+        destroyable = GameObject.FindGameObjectsWithTag("Destroyable");
+
+        int CollectablesInLevel = collectable.Length + destroyable.Length;
 
         objectiveText.gameObject.GetComponent<TextMeshProUGUI>().text = currentObjective;
-        counterTextObject.gameObject.GetComponent<TextMeshProUGUI>().text = collectable.Length.ToString();
+        counterTextObject.gameObject.GetComponent<TextMeshProUGUI>().text = CollectablesInLevel.ToString();
 
         /*
         if (CollectablesInLevel <= 0)
@@ -82,35 +83,11 @@ public class ConditionsScript : MonoBehaviour
 
         if (CollectablesInLevel <= 0)
         {
-            player.GetComponent<GarbageCollectionScript>().enabled = false;
-
+            //player.GetComponent<GarbageCollectionScript>().enabled = false;
             objectiveText.gameObject.GetComponent<TextMeshProUGUI>().text = objectiveUponCompletion;
             counterTextObject.gameObject.GetComponent<TextMeshProUGUI>().text = "--".ToString();
 
             levelCompletionTrigger.SetActive(true);
-        }
-    }
-
-    public void OnInteraction(InputAction.CallbackContext context)
-    {
-        RaycastHit hitInfo;
-
-        if (!context.performed) return;
-
-        if (Physics.Raycast(player.GetComponent<FirstPersonControllerScript>().firstPersonCam.transform.position,player.GetComponent<FirstPersonControllerScript>().firstPersonCam.transform.forward, out hitInfo, 5))
-        {
-            TargetScript target = hitInfo.transform.GetComponent<TargetScript>();
-
-            if (hitInfo.collider.CompareTag("ExitTrigger") && levelCompletionTrigger != null)
-            {
-                if (levelCompletionScreen != null)
-                {
-                    //PLAYER MOVES TO NEXT SCENE WHERE THEY ARE TOLD THAT THEY BEAT THE PREVIOUS LEVEL. KIND OGF LIKE THE ASYLUM BITS OF THE EVIL WITHIN.
-
-                    //gameObject.GetComponent<PauseMenuScript>().enabled = false;
-                    Debug.Log("You WIn !!!");
-                }
-            }
         }
     }
 

@@ -53,10 +53,7 @@ public class SceneManagerScript : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
 
-            if (slider != null)
-            {
-                slider.value = progress;
-            }
+            slider.value = progress;
 
             if (progressPercentageText != null)
             {
@@ -82,10 +79,7 @@ public class SceneManagerScript : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
 
-            if (slider != null)
-            {
-                slider.value = progress;
-            }
+            slider.value = progress;
 
             if (progressPercentageText != null)
             {
@@ -111,10 +105,7 @@ public class SceneManagerScript : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
 
-            if (slider != null)
-            {
-                slider.value = progress;
-            }
+            slider.value = progress;
 
             if (progressPercentageText != null)
             {
