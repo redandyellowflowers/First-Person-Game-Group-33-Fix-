@@ -52,6 +52,8 @@ public class BombScript : MonoBehaviour
 
         FindAnyObjectByType<AudioManagerScript>().Play("Explosion");
 
+        FindAnyObjectByType<ScoreSystenScript>().addScore(10);
+
         Destroy(gameObject);
     }
 
