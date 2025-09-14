@@ -24,15 +24,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Camera Zoom",
-                    "type": "Button",
-                    "id": "13766f37-9da0-4ed5-bd1d-f1de2733c16a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "a3471427-f435-4571-b393-28cc83083c57",
@@ -45,15 +36,6 @@
                     "name": "Interaction",
                     "type": "Button",
                     "id": "cbd959e8-951b-4c6f-8f0b-e758c8e8be73",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Hold",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Sprint",
-                    "type": "Button",
-                    "id": "aee91e0e-aef8-4b40-9b39-1f12dc27676b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -265,50 +247,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interaction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "728cbaac-4670-490b-a8be-c3f7adbd6ebc",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c6f19fd1-b1a8-4d8f-92f3-c687ee4f414e",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9da3a1c9-450c-4612-8325-a190ff4e343c",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Camera Zoom",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a7551cf5-5026-427b-94d5-b77b6bdb87f5",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Camera Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

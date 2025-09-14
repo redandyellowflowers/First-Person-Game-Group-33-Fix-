@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,8 +23,6 @@ public class FirstPersonControllerScript : MonoBehaviour
 
     [Header("Base Movement")]
     public float speed = 12f;
-    public float baseSpeed;
-    public float sprintSpeed;
     public float gravity = -9.81f;//though -19.81f seems to work better with the jump mechanic
 
     [Header("Jumping Mechanic")]
@@ -37,10 +34,12 @@ public class FirstPersonControllerScript : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
+    /*
     [Header("Double Jump")]
     private int minJumpAmount = 1;
     private int maxJumpAmount = 2;
     private bool hasJumped;
+    */
 
     [Header("Mouse Look")]
     public float mouseSensitivity = 100f;
@@ -48,13 +47,6 @@ public class FirstPersonControllerScript : MonoBehaviour
     public GameObject firstPersonCam;
 
     private float xRotation = 0f;
-
-    /*
-    [Header("Camera Zoom")]
-    public float zoomFOV;
-    public float normalFOV;
-    public float zoomSpeed;
-    */
 
     private Vector2 moveInput;
     private Vector2 lookInput;
@@ -71,7 +63,7 @@ public class FirstPersonControllerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        minJumpAmount = 1;
+        //minJumpAmount = 1;
     }
 
     // Update is called once per frame
@@ -83,7 +75,6 @@ public class FirstPersonControllerScript : MonoBehaviour
         if (controller.gameObject.transform.position.y <= -20)
         {
             FindAnyObjectByType<SceneManagerScript>().Restart();
-            //FindAnyObjectByType<AudioManagerScript>().Play("Death");
         }
     }
 
@@ -111,6 +102,12 @@ public class FirstPersonControllerScript : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(groundCheck.transform.position, groundDistance);
+    }
+
     public void OnLook(InputAction.CallbackContext context)
     {
         lookInput = context.ReadValue<Vector2>();
@@ -127,55 +124,27 @@ public class FirstPersonControllerScript : MonoBehaviour
         firstPersonCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);//quaternions are responsible for rotations
         playerBody.Rotate(Vector3.up * mouseX);
     }
-    /*
-
-    public void OnCameraZoom(InputAction.CallbackContext context)
-    {
-        float targetFOV;
-        Camera camera = firstPersonCam.GetComponent<Camera>();
-
-        if (context.performed)
-        {
-            targetFOV = zoomFOV;
-            camera.fieldOfView = targetFOV;//???
-        }
-        else if (context.canceled)
-        {
-            targetFOV = normalFOV;
-            camera.fieldOfView = targetFOV;
-        }
-
-        //camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed);//"Lerping" - smoothly moving from one value to another (value 1, to value 2, multiplied by speed)
-    }
-    */
 
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed && isGrounded)
         {
+            /*
             hasJumped = true;
             minJumpAmount++;
+            */
+
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
-            //FindAnyObjectByType<AudioManagerScript>().Play("Jump");
+            FindAnyObjectByType<AudioManagerScript>().Play("Jump");
         }
+        /*
         else if (context.performed && hasJumped && isGrounded != true && minJumpAmount == maxJumpAmount)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             minJumpAmount = 1;
             hasJumped = false;
         }
-    }
-
-    public void OnSprint(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            speed = sprintSpeed;
-        }
-        else if (context.canceled)
-        {
-            speed = baseSpeed;
-        }
+        */
     }
 }

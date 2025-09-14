@@ -1,7 +1,5 @@
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ConditionsScript : MonoBehaviour
 {
@@ -83,6 +81,8 @@ public class ConditionsScript : MonoBehaviour
 
         if (CollectablesInLevel <= 0)
         {
+            FindAnyObjectByType<AudioManagerScript>().Stop("Background");
+
             //player.GetComponent<GarbageCollectionScript>().enabled = false;
             objectiveText.gameObject.GetComponent<TextMeshProUGUI>().text = objectiveUponCompletion;
             counterTextObject.gameObject.GetComponent<TextMeshProUGUI>().text = "--".ToString();

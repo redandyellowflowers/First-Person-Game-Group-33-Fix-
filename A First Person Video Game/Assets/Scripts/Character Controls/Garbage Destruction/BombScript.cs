@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class BombScript : MonoBehaviour
 {
@@ -50,6 +49,8 @@ public class BombScript : MonoBehaviour
                 target.takeDamage(100);
             }
         }
+
+        FindAnyObjectByType<AudioManagerScript>().Play("Explosion");
 
         Destroy(gameObject);
     }

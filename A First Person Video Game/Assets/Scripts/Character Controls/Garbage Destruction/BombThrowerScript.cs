@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class BombThrowerScript : MonoBehaviour
 {
@@ -17,6 +16,8 @@ public class BombThrowerScript : MonoBehaviour
 
     public void ThrowBomb()
     {
+        FindAnyObjectByType<AudioManagerScript>().Play("Throw");
+
         GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
         Rigidbody rb = grenade.GetComponent<Rigidbody>();
         rb.AddForce(spawnPoint.transform.forward * throwForce, ForceMode.VelocityChange);
