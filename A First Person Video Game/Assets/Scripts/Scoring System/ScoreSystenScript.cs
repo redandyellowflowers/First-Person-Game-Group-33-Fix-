@@ -20,15 +20,16 @@ public class ScoreSystenScript : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScore;
 
-    private void Start()
+    private void Awake()
     {
+        PlayerPrefs.GetInt("highscore", 0);
+
         highScore.text = PlayerPrefs.GetInt("highscore", 0).ToString();
-        scoreText.text = 0.ToString();
     }
 
-    private void Update()
+    private void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        scoreText.text = 0.ToString();
     }
 
     //the below is used for testing within unity - it creates a "button" that allows you to run the function while the game is running - similar to the debug dot log but nor really

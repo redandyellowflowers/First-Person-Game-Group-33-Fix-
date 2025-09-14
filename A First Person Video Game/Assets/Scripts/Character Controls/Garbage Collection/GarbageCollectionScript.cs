@@ -48,9 +48,9 @@ public class GarbageCollectionScript : MonoBehaviour
                 interactionTextObject.text = "[E] Leave Level".ToString();
             }
 
-            if (hitInfo.collider.CompareTag("BombPickUp"))
+            if (hitInfo.collider.CompareTag("Coin"))
             {
-                interactionTextObject.text = "[E] Ammunition".ToString();
+                interactionTextObject.text = "Coin".ToString();
             }
         }
         else
@@ -80,7 +80,7 @@ public class GarbageCollectionScript : MonoBehaviour
 
             if (hitInfo.collider.CompareTag("Destroyable") && target != null)
             {
-                FindAnyObjectByType<AudioManagerScript>().Play("Throw");
+                FindAnyObjectByType<AudioManagerScript>().Play("Rig Explosive");
 
                 GameObject grenade = Instantiate(grenadePrefab, hitInfo.transform.position, hitInfo.transform.rotation);
             }
@@ -91,15 +91,6 @@ public class GarbageCollectionScript : MonoBehaviour
 
                 //PLAYER MOVES TO NEXT SCENE WHERE THEY ARE TOLD THAT THEY BEAT THE PREVIOUS LEVEL. KIND OGF LIKE THE ASYLUM BITS OF THE EVIL WITHIN.
                 FindAnyObjectByType<SceneManagerScript>().Restart();
-            }
-
-            if (hitInfo.collider.CompareTag("BombPickUp"))
-            {
-                FindAnyObjectByType<ScoreSystenScript>().addScore(0);
-
-                FindAnyObjectByType<AudioManagerScript>().Play("Ammo");
-
-                Destroy(hitInfo.collider.transform.gameObject);
             }
         }
     }
