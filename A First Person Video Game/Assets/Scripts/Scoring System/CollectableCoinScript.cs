@@ -11,7 +11,7 @@ public class CollectableCoinScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        gameObject.transform.Rotate(Vector3.up * 55 * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
