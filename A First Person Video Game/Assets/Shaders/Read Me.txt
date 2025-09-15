@@ -1,0 +1,9 @@
+References
+
+
+Title: "Sophies Heroic Bloodbath - Assignment 4 - Exam - Playable Game"
+Author: Miguel Marindanise, Fatima Zahraa Bham, Yongama Ntloko 
+Date: 16 August 2025
+Code version: 1
+
+*Used a shader from a previous assignment as a base for the blood shader in this folder.
