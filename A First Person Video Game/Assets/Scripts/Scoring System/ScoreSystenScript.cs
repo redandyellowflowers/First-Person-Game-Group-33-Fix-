@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class ScoreSystenScript : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class ScoreSystenScript : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScore;
 
+    public GameObject introHighScoreText;
+
     private void Awake()
     {
         PlayerPrefs.GetInt("highscore", 0);
@@ -29,6 +32,15 @@ public class ScoreSystenScript : MonoBehaviour
 
     private void Start()
     {
+        if (introHighScoreText != null && playerScore <= 0)
+        {
+            introHighScoreText.SetActive(false);
+        }
+        else
+        {
+            introHighScoreText.SetActive(true);
+        }
+
         scoreText.text = 0.ToString();
     }
 
@@ -46,6 +58,22 @@ public class ScoreSystenScript : MonoBehaviour
             //FindAnyObjectByType<AudioManager>().Play("highScore");
             PlayerPrefs.SetInt("highscore", playerScore);
             highScore.text = playerScore.ToString();
+        }
+    }
+
+    public void OnReset(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        ResetHighScore();
+
+        if (introHighScoreText != null && playerScore <= 0)
+        {
+            introHighScoreText.SetActive(false);
+        }
+        else
+        {
+            introHighScoreText.SetActive(true);
         }
     }
 

@@ -19,6 +19,10 @@ public class FirstPersonControllerScript : MonoBehaviour
     Availability: https://www.youtube.com/watch?v=oGVbC7ooUWI
     */
 
+    public static FirstPersonControllerScript controllerScript;
+
+    public bool playerCanMove;
+
     public CharacterController controller;
 
     [Header("Base Movement")]
@@ -34,12 +38,10 @@ public class FirstPersonControllerScript : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
-    /*
     [Header("Double Jump")]
     private int minJumpAmount = 1;
     private int maxJumpAmount = 2;
     private bool hasJumped;
-    */
 
     [Header("Mouse Look")]
     public float mouseSensitivity = 100f;
@@ -80,7 +82,10 @@ public class FirstPersonControllerScript : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        moveInput = context.ReadValue<Vector2>();
+        if (playerCanMove)
+        {
+            moveInput = context.ReadValue<Vector2>();
+        }
     }
 
     public void HandleMovement()
@@ -127,24 +132,24 @@ public class FirstPersonControllerScript : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && isGrounded)
+        if (context.performed && isGrounded && playerCanMove)
         {
-            /*
+            
             hasJumped = true;
             minJumpAmount++;
-            */
+            
 
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
             FindAnyObjectByType<AudioManagerScript>().Play("Jump");
         }
-        /*
-        else if (context.performed && hasJumped && isGrounded != true && minJumpAmount == maxJumpAmount)
+        else if (context.performed && hasJumped && isGrounded != true && minJumpAmount >= maxJumpAmount)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             minJumpAmount = 1;
             hasJumped = false;
+
+            FindAnyObjectByType<AudioManagerScript>().Play("Jump");
         }
-        */
     }
 }

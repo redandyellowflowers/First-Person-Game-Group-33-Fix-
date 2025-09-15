@@ -1,5 +1,9 @@
+using System;
+using System.Collections;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ConditionsScript : MonoBehaviour
 {
@@ -20,6 +24,11 @@ public class ConditionsScript : MonoBehaviour
 
     private GameObject player;
 
+    [Header("Level Initiate")]
+    public GameObject introText;
+    public GameObject HUD;
+    private bool hasInitiatedTimer;
+
     [Header("'Collectable' Objects")]
     public GameObject counterTextObject;
     public GameObject[] collectable;
@@ -39,6 +48,13 @@ public class ConditionsScript : MonoBehaviour
     public bool countDown;
     public bool hasLimit;
 
+    [Header("dialogue")]
+    public float dialogueSpeed;
+    [TextArea(2, 4)] public string[] sentences;
+    private int index = 0;
+    private bool dialogueHasEnded;
+    private bool isDoneTalking;
+
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -48,6 +64,32 @@ public class ConditionsScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (introText != null && dialogueHasEnded != null)
+        {
+            introText.SetActive(true);
+            hasInitiatedTimer = false;
+
+            if (HUD != null)
+            {
+                HUD.SetActive(false);
+            }
+
+            FindAnyObjectByType<FirstPersonControllerScript>().playerCanMove = false;
+
+            StartCoroutine(WriteSentence());
+        }
+        else
+        {
+            hasInitiatedTimer = true;
+
+            if (HUD != null)
+            {
+                HUD.SetActive(true);
+            }
+
+            FindAnyObjectByType<FirstPersonControllerScript>().playerCanMove = true;
+        }
+
         objectiveText.gameObject.GetComponent<TextMeshProUGUI>().text = currentObjective;
         counterTextObject.gameObject.GetComponent<TextMeshProUGUI>().text = collectable.Length + destroyable.Length.ToString();
 
@@ -57,10 +99,44 @@ public class ConditionsScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    IEnumerator WriteSentence()
+    {
+        foreach (char character in sentences[index].ToCharArray())
+        {
+            introText.GetComponentInChildren<TextMeshProUGUI>().text += character;
+
+            FindAnyObjectByType<AudioManagerScript>().PlayOnButtonPress("Typing");
+
+            yield return new WaitForSeconds(dialogueSpeed);
+            isDoneTalking = false;
+        }
+        isDoneTalking = true;
+        index++; 
+    }
+
+    void NextSentence()
+    {
+        if (index <= sentences.Length - 1)
+        {
+            introText.GetComponentInChildren<TextMeshProUGUI>().text = "".ToString();
+            StartCoroutine(WriteSentence());
+        }
+        else
+        {
+            dialogueHasEnded = true;
+
+            introText.GetComponentInChildren<TextMeshProUGUI>().text = "".ToString();
+            index = sentences[^1].Length;
+        }
+    }
+
+            // Update is called once per frame
     void Update()
     {
-        StartTimer();
+        if (hasInitiatedTimer)
+        {
+            StartTimer();
+        }
 
         collectable = GameObject.FindGameObjectsWithTag("Collectable");
         destroyable = GameObject.FindGameObjectsWithTag("Destroyable");
@@ -87,6 +163,52 @@ public class ConditionsScript : MonoBehaviour
 
             levelCompletionTrigger.SetActive(true);
         }
+    }
+
+    public void OnInitiate(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        if (isDoneTalking)
+        {
+            NextSentence();
+        }
+
+        if (dialogueHasEnded)
+        {
+            if (introText != null)
+            {
+                introText.SetActive(false);
+            }
+
+            hasInitiatedTimer = true;
+
+            if (HUD != null)
+            {
+                HUD.SetActive(true);
+            }
+
+            FindAnyObjectByType<FirstPersonControllerScript>().playerCanMove = true;
+        }
+    }
+
+    public void OnReset(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        introText.GetComponentInChildren<TextMeshProUGUI>().text = "".ToString();
+        index = 0;
+
+        dialogueHasEnded = true;
+
+        hasInitiatedTimer = true;
+
+        if (HUD != null)
+        {
+            HUD.SetActive(true);
+        }
+
+        FindAnyObjectByType<FirstPersonControllerScript>().playerCanMove = true;
     }
 
     void StartTimer()

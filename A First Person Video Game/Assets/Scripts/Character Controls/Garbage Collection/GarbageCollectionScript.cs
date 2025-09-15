@@ -87,8 +87,6 @@ public class GarbageCollectionScript : MonoBehaviour
 
             if (hitInfo.collider.CompareTag("ExitTrigger"))
             {
-                FindAnyObjectByType<ScoreSystenScript>().addScore(20);
-
                 //PLAYER MOVES TO NEXT SCENE WHERE THEY ARE TOLD THAT THEY BEAT THE PREVIOUS LEVEL. KIND OGF LIKE THE ASYLUM BITS OF THE EVIL WITHIN.
                 FindAnyObjectByType<SceneManagerScript>().Restart();
             }
