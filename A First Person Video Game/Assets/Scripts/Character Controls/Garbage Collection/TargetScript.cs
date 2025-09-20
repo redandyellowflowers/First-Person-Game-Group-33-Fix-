@@ -14,11 +14,6 @@ public class TargetScript : MonoBehaviour
             Destroy(gameObject);
             Debug.Log("SMALL Object Collected!");
         }
-        else if (health == 0 && gameObject.tag == "Destroyable")
-        {
-            Destroy(gameObject);
-            Debug.Log("LARGE Object Destroyed!");
-        }
         else
         {
             Debug.Log("Nothing.");

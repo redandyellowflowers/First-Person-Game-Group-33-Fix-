@@ -60,15 +60,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Skip",
-                    "type": "Button",
-                    "id": "7e88fd07-db23-4d2a-8d22-34bab6ccc2c7",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "4e68db3d-a9db-4ec1-8fab-a7afff9d2376",
@@ -318,17 +309,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reset",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9d5c2351-df99-45cf-a86d-4c37575a629f",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Skip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

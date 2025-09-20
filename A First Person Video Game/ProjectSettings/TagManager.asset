@@ -5,9 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Collectable
-  - Destroyable
   - ExitTrigger
-  - BombPickUp
   - Coin
   layers:
   - Default

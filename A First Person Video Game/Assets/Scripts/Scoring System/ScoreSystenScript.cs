@@ -14,6 +14,8 @@ public class ScoreSystenScript : MonoBehaviour
 
     public static ScoreSystenScript Score;
 
+    public TextMeshProUGUI introScoreText;
+
     [Header("values")]
     public int playerScore;
 
@@ -28,17 +30,18 @@ public class ScoreSystenScript : MonoBehaviour
         PlayerPrefs.GetInt("highscore", 0);
 
         highScore.text = PlayerPrefs.GetInt("highscore", 0).ToString();
+        introScoreText.text = "Highscore: " + PlayerPrefs.GetInt("highscore", 0).ToString();
     }
 
     private void Start()
     {
-        if (introHighScoreText != null && playerScore <= 0)
+        if (introHighScoreText != null && PlayerPrefs.GetInt("highscore") > 0)
         {
-            introHighScoreText.SetActive(false);
+            introHighScoreText.SetActive(true);
         }
         else
         {
-            introHighScoreText.SetActive(true);
+            introHighScoreText.SetActive(false);
         }
 
         scoreText.text = 0.ToString();
@@ -58,6 +61,7 @@ public class ScoreSystenScript : MonoBehaviour
             //FindAnyObjectByType<AudioManager>().Play("highScore");
             PlayerPrefs.SetInt("highscore", playerScore);
             highScore.text = playerScore.ToString();
+            introScoreText.text = "Highscore: " + playerScore.ToString();
         }
     }
 
@@ -67,7 +71,7 @@ public class ScoreSystenScript : MonoBehaviour
 
         ResetHighScore();
 
-        if (introHighScoreText != null && playerScore <= 0)
+        if (introHighScoreText != null && PlayerPrefs.GetInt("highscore") <= 0)
         {
             introHighScoreText.SetActive(false);
         }
@@ -82,5 +86,6 @@ public class ScoreSystenScript : MonoBehaviour
     {
         PlayerPrefs.DeleteKey("highscore");
         highScore.text = "0";//this is to have it update automatically rather than when the program is reopened
+        introScoreText.text = "HIghscore: " + 0;
     }
 }

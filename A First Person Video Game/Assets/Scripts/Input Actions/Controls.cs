@@ -146,15 +146,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Skip"",
-                    ""type"": ""Button"",
-                    ""id"": ""7e88fd07-db23-4d2a-8d22-34bab6ccc2c7"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""4e68db3d-a9db-4ec1-8fab-a7afff9d2376"",
@@ -406,17 +397,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Reset"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9d5c2351-df99-45cf-a86d-4c37575a629f"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Skip"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -431,7 +411,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_CharacterControls_Interaction = m_CharacterControls.FindAction("Interaction", throwIfNotFound: true);
         m_CharacterControls_Initiate = m_CharacterControls.FindAction("Initiate", throwIfNotFound: true);
         m_CharacterControls_Reset = m_CharacterControls.FindAction("Reset", throwIfNotFound: true);
-        m_CharacterControls_Skip = m_CharacterControls.FindAction("Skip", throwIfNotFound: true);
         m_CharacterControls_Pause = m_CharacterControls.FindAction("Pause", throwIfNotFound: true);
     }
 
@@ -519,7 +498,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_CharacterControls_Interaction;
     private readonly InputAction m_CharacterControls_Initiate;
     private readonly InputAction m_CharacterControls_Reset;
-    private readonly InputAction m_CharacterControls_Skip;
     private readonly InputAction m_CharacterControls_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Character Controls".
@@ -556,10 +534,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "CharacterControls/Reset".
         /// </summary>
         public InputAction @Reset => m_Wrapper.m_CharacterControls_Reset;
-        /// <summary>
-        /// Provides access to the underlying input action "CharacterControls/Skip".
-        /// </summary>
-        public InputAction @Skip => m_Wrapper.m_CharacterControls_Skip;
         /// <summary>
         /// Provides access to the underlying input action "CharacterControls/Pause".
         /// </summary>
@@ -608,9 +582,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Reset.started += instance.OnReset;
             @Reset.performed += instance.OnReset;
             @Reset.canceled += instance.OnReset;
-            @Skip.started += instance.OnSkip;
-            @Skip.performed += instance.OnSkip;
-            @Skip.canceled += instance.OnSkip;
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
@@ -643,9 +614,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Reset.started -= instance.OnReset;
             @Reset.performed -= instance.OnReset;
             @Reset.canceled -= instance.OnReset;
-            @Skip.started -= instance.OnSkip;
-            @Skip.performed -= instance.OnSkip;
-            @Skip.canceled -= instance.OnSkip;
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
@@ -731,13 +699,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnReset(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Skip" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSkip(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

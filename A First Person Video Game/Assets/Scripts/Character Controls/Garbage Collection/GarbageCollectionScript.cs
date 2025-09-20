@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class GarbageCollectionScript : MonoBehaviour
 {
-    public GameObject grenadePrefab;
+    public Transform spawnPoint;
 
     public TextMeshProUGUI ammoCountText;
 
@@ -33,11 +33,6 @@ public class GarbageCollectionScript : MonoBehaviour
 
         if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out hitInfo, collectableRange))
         {
-            if (hitInfo.collider.CompareTag("Destroyable"))
-            {
-                interactionTextObject.text = "[E] Throw Explosive".ToString();
-            }
-
             if (hitInfo.collider.CompareTag("Collectable"))
             {
                 interactionTextObject.text = "[E] Pick Up".ToString();
@@ -73,16 +68,9 @@ public class GarbageCollectionScript : MonoBehaviour
             {
                 target.takeDamage(100);
 
-                FindAnyObjectByType<ScoreSystenScript>().addScore(5);
+                FindAnyObjectByType<ScoreSystenScript>().addScore(10);
 
                 FindAnyObjectByType<AudioManagerScript>().Play("Collection");
-            }
-
-            if (hitInfo.collider.CompareTag("Destroyable") && target != null)
-            {
-                FindAnyObjectByType<AudioManagerScript>().Play("Rig Explosive");
-
-                GameObject grenade = Instantiate(grenadePrefab, hitInfo.transform.position, hitInfo.transform.rotation);
             }
 
             if (hitInfo.collider.CompareTag("ExitTrigger"))

@@ -51,7 +51,7 @@ public class AudioManagerScript : MonoBehaviour
 
     private void Start()
     {
-        Play("Background");
+        //Play("Background");
     }
 
     public void Play(string name)
