@@ -4,15 +4,14 @@ using UnityEngine.InputSystem;
 
 public class GarbageCollectionScript : MonoBehaviour
 {
+    [Header("GameObjects, Transforms, and Text")]
     public Transform spawnPoint;
-
-    public TextMeshProUGUI ammoCountText;
-
-    public float collectableRange = 5f;
-    public float throwableRange = 10f;
-
     public TextMeshProUGUI interactionTextObject;
 
+    [Header("Values")]
+    public float collectableRange = 5f;
+    public float throwableRange = 10f;
+    
     private GameObject firstPersonCam;
 
     private void Awake()
@@ -76,7 +75,7 @@ public class GarbageCollectionScript : MonoBehaviour
             if (hitInfo.collider.CompareTag("ExitTrigger"))
             {
                 //PLAYER MOVES TO NEXT SCENE WHERE THEY ARE TOLD THAT THEY BEAT THE PREVIOUS LEVEL. KIND OGF LIKE THE ASYLUM BITS OF THE EVIL WITHIN.
-                FindAnyObjectByType<SceneManagerScript>().Restart();
+                FindAnyObjectByType<SceneManagerScript>().NextLevel();
             }
         }
     }

@@ -18,6 +18,8 @@ public class AudioManagerScript : MonoBehaviour
     Code version: 1
     */
 
+    public bool isMenu = false;
+
     public SoundScript[] sounds;
 
     public static AudioManagerScript instance;
@@ -51,7 +53,10 @@ public class AudioManagerScript : MonoBehaviour
 
     private void Start()
     {
-        //Play("Background");
+        if (isMenu)
+        {
+            Play("Background");
+        }
     }
 
     public void Play(string name)

@@ -25,6 +25,9 @@ public class ConditionsScript : MonoBehaviour
 
     private GameObject player;
 
+    [Header("GameObjects")]
+    public GameObject levelCompletionTrigger;
+
     [Header("'Collectable' Objects")]
     public GameObject counterTextObject;
     public GameObject[] collectable;
@@ -33,8 +36,6 @@ public class ConditionsScript : MonoBehaviour
     public TextMeshProUGUI objectiveText;
     [TextArea(2, 3)] public string currentObjective = "Clear The Area Of The Debris.";
     [TextArea(2, 3)] public string objectiveUponCompletion = "Leave The Area. Return To Your __?.";
-
-    public GameObject levelCompletionTrigger;
 
     [Header("Timer")]
     public TextMeshProUGUI timerText;
@@ -60,8 +61,8 @@ public class ConditionsScript : MonoBehaviour
             levelCompletionTrigger.SetActive(false);
         }
     }
-
-            // Update is called once per frame
+    
+    // Update is called once per frame
     void Update()
     {
         collectable = GameObject.FindGameObjectsWithTag("Collectable");
@@ -75,7 +76,6 @@ public class ConditionsScript : MonoBehaviour
         {
             FindAnyObjectByType<AudioManagerScript>().Stop("Background");
 
-            //player.GetComponent<GarbageCollectionScript>().enabled = false;
             objectiveText.gameObject.GetComponent<TextMeshProUGUI>().text = objectiveUponCompletion;
             counterTextObject.gameObject.GetComponent<TextMeshProUGUI>().text = "--".ToString();
 

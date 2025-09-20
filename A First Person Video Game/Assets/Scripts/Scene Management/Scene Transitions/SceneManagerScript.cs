@@ -23,7 +23,7 @@ public class SceneManagerScript : MonoBehaviour
 
     public static SceneManagerScript sceneManager;
 
-    [Header("loading screen ui")]
+    [Header("loading Screen")]
     public GameObject loadingScreen;
     public TextMeshProUGUI progressPercentageText;
     public Slider slider;

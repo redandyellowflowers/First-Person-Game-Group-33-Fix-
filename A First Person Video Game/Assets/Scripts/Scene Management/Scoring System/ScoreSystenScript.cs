@@ -14,37 +14,54 @@ public class ScoreSystenScript : MonoBehaviour
 
     public static ScoreSystenScript Score;
 
-    public TextMeshProUGUI introScoreText;
+    public bool isMenu = false;
 
-    [Header("values")]
+    [Header("Values")]
     public int playerScore;
 
-    [Header("ui")]
+    [Header("UI Elements (Main Menu)")]
+    public TextMeshProUGUI menuHighScoreText;
+
+
+    [Header("UI Elements (HUD)")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScore;
 
+    [Header("UI Elements (Intro)")]
+    public TextMeshProUGUI introScoreText;
     public GameObject introHighScoreText;
 
     private void Awake()
     {
         PlayerPrefs.GetInt("highscore", 0);
 
-        highScore.text = PlayerPrefs.GetInt("highscore", 0).ToString();
-        introScoreText.text = "Highscore: " + PlayerPrefs.GetInt("highscore", 0).ToString();
+        if (!isMenu)
+        {
+            highScore.text = PlayerPrefs.GetInt("highscore", 0).ToString();
+            introScoreText.text = "Highscore: " + PlayerPrefs.GetInt("highscore", 0).ToString();
+        }
+
+        if (isMenu)
+        {
+            menuHighScoreText.text = "Highscore: " + PlayerPrefs.GetInt("highscore", 0).ToString();
+        }
     }
 
     private void Start()
     {
-        if (introHighScoreText != null && PlayerPrefs.GetInt("highscore") > 0)
+        if (!isMenu)
         {
-            introHighScoreText.SetActive(true);
-        }
-        else
-        {
-            introHighScoreText.SetActive(false);
-        }
+            if (introHighScoreText != null && PlayerPrefs.GetInt("highscore") > 0)
+            {
+                introHighScoreText.SetActive(true);
+            }
+            else
+            {
+                introHighScoreText.SetActive(false);
+            }
 
-        scoreText.text = 0.ToString();
+            scoreText.text = 0.ToString();
+        }
     }
 
     //the below is used for testing within unity - it creates a "button" that allows you to run the function while the game is running - similar to the debug dot log but nor really
@@ -71,13 +88,16 @@ public class ScoreSystenScript : MonoBehaviour
 
         ResetHighScore();
 
-        if (introHighScoreText != null && PlayerPrefs.GetInt("highscore") <= 0)
+        if (!isMenu)
         {
-            introHighScoreText.SetActive(false);
-        }
-        else
-        {
-            introHighScoreText.SetActive(true);
+            if (introHighScoreText != null && PlayerPrefs.GetInt("highscore") <= 0)
+            {
+                introHighScoreText.SetActive(false);
+            }
+            else
+            {
+                introHighScoreText.SetActive(true);
+            }
         }
     }
 
@@ -85,7 +105,15 @@ public class ScoreSystenScript : MonoBehaviour
     public void ResetHighScore()
     {
         PlayerPrefs.DeleteKey("highscore");
-        highScore.text = "0";//this is to have it update automatically rather than when the program is reopened
-        introScoreText.text = "HIghscore: " + 0;
+
+        if (!isMenu)
+        {
+            highScore.text = "0";//this is to have it update automatically rather than when the program is reopened
+            introScoreText.text = "HIghscore: " + 0;
+        }
+        else
+        {
+            menuHighScoreText.text = "HIghscore: " + 0;
+        }
     }
 }

@@ -2,17 +2,14 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.TextCore.Text;
 
 public class IntroTextScript : MonoBehaviour
 {
     public static IntroTextScript introTextScript;
 
-    public bool isLevel = true;
-    private GameObject player;
+    public GameObject introTextObj;
 
-    [Header("Level Initiate")]
+    [Header("Level Initiation")]
     public GameObject introText;
     public GameObject HUD;
     private bool hasInitiatedTimer;
@@ -28,16 +25,15 @@ public class IntroTextScript : MonoBehaviour
     private void Awake()
     {
         introText.GetComponentInChildren<TextMeshProUGUI>().text = "";
-
-        player = GameObject.FindWithTag("Player");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         if (introText != null)
         {
+            introTextObj.SetActive(true);
+
             continueButton.SetActive(false);
 
             introText.SetActive(true);
@@ -56,17 +52,14 @@ public class IntroTextScript : MonoBehaviour
         {
             hasInitiatedTimer = true;
 
+            introTextObj.SetActive(false);
+
             if (HUD != null)
             {
                 HUD.SetActive(true);
             }
 
             FindAnyObjectByType<FirstPersonControllerScript>().playerCanMove = true;
-
-            if (isLevel == false)
-            {
-                FindAnyObjectByType<SceneManagerScript>().NextLevel();
-            }
         }
     }
 
@@ -103,6 +96,8 @@ public class IntroTextScript : MonoBehaviour
             }
 
             FindAnyObjectByType<FirstPersonControllerScript>().playerCanMove = true;
+
+            introTextObj.SetActive(false);
         }
     }
 
