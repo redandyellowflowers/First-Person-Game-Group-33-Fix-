@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4643b1cd72b5204c994dae76c699c44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLevel: 0
   introText: {fileID: 472294365}
   HUD: {fileID: 1106558555}
   dialogueSpeed: 0.07
@@ -2430,7 +2431,7 @@ MonoBehaviour:
   sounds:
   - name: Background
     clip: {fileID: 8300000, guid: eeae0f9732476ed419936a018c687f93, type: 3}
-    volume: 0.3
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
     loop: 1
