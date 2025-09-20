@@ -26,6 +26,8 @@ public class ScoreSystenScript : MonoBehaviour
     [Header("UI Elements (HUD)")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScore;
+    public GameObject scoreIcon;
+
 
     [Header("UI Elements (Intro)")]
     public TextMeshProUGUI introScoreText;
@@ -62,6 +64,11 @@ public class ScoreSystenScript : MonoBehaviour
 
             scoreText.text = 0.ToString();
         }
+    }
+
+    private void Update()
+    {
+        scoreIcon.transform.localScale = new Vector4(Mathf.PingPong(.5f, .1f) + 1, scoreIcon.transform.localScale.x, scoreIcon.transform.localScale.y, scoreIcon.transform.localScale.z);
     }
 
     //the below is used for testing within unity - it creates a "button" that allows you to run the function while the game is running - similar to the debug dot log but nor really
